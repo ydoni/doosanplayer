@@ -24,37 +24,24 @@ class App extends Component {
     return (
       <div>
         <div className="container">
-          <h1>두산베어스 선수단 성적 계산</h1>
-          <button className="butPitch">투수</button>
-          <button className="butHit">타자</button>
+          <div className="titlebox">
+            <img src = "./logo.png" alt="logo" />
+            <p>DOOSAN BEARS PLAYERS CALCULATOR</p>
+            <h1>두산베어스 선수단 성적 계산</h1>
+            <div className = "btnbox">
+              <button className = "btn butPitch">투수</button>
+              <button className = "btn butHit">타자</button>
+            </div>
+          </div>
           <div className="players">
             <PutScore grade={this.getScore} />
+           
           </div>
 
 
         </div>
 
-      </div>
-
-
-      /*
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-      */
+      </div>   
       
       );
     }

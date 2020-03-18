@@ -1,13 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,500,700,800');
 * {margin:0; padding:0; font-family: 'Nanum Gothic', 'serif'; }
 body {background-color: #131230; font-size:.875em; }
-h1 {color:#fff;} 
+h1 {font-weight:800; font-size:2.1em;}
+button {border-radius:5px;}
 
 /*App.js*/
 .container {
   width:80%;
   margin:0 auto;
 }
+
+.container .titlebox {
+  color:#fff;
+  padding:40px 0;
+}
+.container .titlebox p {
+  font-size:.875em;
+  font-weight:400;
+  letter-spacing: 4.2px;
+  margin-bottom:5px;
+}
+.container .titlebox img {
+  width: 85px;
+  float:left;
+}
+
 
 .players {
   width:80%;
@@ -16,18 +33,50 @@ h1 {color:#fff;}
   margin:0 auto;
 }
 
+.container .btnbox {  
+  float:right;
+}
 
+.btn {
+  cursor:pointer;
+  padding:5.5px 22px;
+  background-color: transparent;
+  border:.8px solid #fff;
+  color:#fff;
+  box-sizing: border-box;
+}
 
 
 
 
 /*PutScore.js*/
 
-.inputGrade {text-align:center;}
-.inputGrade input::placeholder {}
+.inputGrade {
+  text-align:center;
+  padding:35px 0;
+}
+.inputGrade span {
+  color:#c7c6c6;
+  font-size:1.3em;
+}
+.inputGrade input {
+  width:150px;
+  border:.7px
+  solid #c7c6c6;
+  padding:5px;
+  margin-right:6px;
+}
+.inputGrade input::placeholder {
+  color:#c7c6c6;
+  font-size:0.875em;
+}
 .putGrade {background-color: #ed1c24; color:#fff;}
+.putGrade:hover {background-color: #da1b23}
 
 
+
+/*PitcherList.js*/
+.pitcherInfo {background-color: #}
 
 
 

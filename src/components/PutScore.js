@@ -13,12 +13,12 @@ class PutScore extends Component {
 	onSubmitValue = (e) => {
 		e.preventDefault();
 
-		this.props.grade(this.state);		
+		this.props.grade(this.state);
 		this.setState({
 			playerNum:"",
 			inning:"",
 			score:"",
-			era : this.state.score*9/this.state.inning
+			era : (this.state.score*9)/this.state.inning
 			//era : score * 9 / inning
 		});
 	}
@@ -47,7 +47,7 @@ class PutScore extends Component {
 					value = {this.state.score}
 					onChange = {this.onChangeValue}
 				/>
-				<button className = "putGrade" type = "submit">등록</button>
+				<button className = "btn putGrade" type = "submit">등록</button>
 
 
 			</form>
