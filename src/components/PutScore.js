@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 class PutScore extends Component {
 
-	state = { playerNum:"", inning:"", score:"", era:"" }
+	state = { playerNum:"", inning:"", score:"" }
 
 	onChangeValue = (e) => {
 		this.setState({
@@ -18,11 +18,11 @@ class PutScore extends Component {
 			playerNum:"",
 			inning:"",
 			score:"",
-			era : (this.state.score*9)/this.state.inning
+			// era:""
+			// era : (this.state.score*9)/this.state.inning
 			//era : score * 9 / inning
 		});
-	}
-
+	}	
 	
 	render (){
 		return (

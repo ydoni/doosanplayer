@@ -10,11 +10,16 @@ class List extends Component {
 		const {data} = this.props;
 
 		const list_pitch = data.map (
-			info => (<PitcherList />)
+			listp => (<PitcherList key={listp.id} listp={listp} />)
 		);
+
+		// const list_hitter = data.map (
+		// 	info => (<HitterList />)
+		// );
 
 		return(
 			<div>
+			
 				{list_pitch}
 			</div>
 		);

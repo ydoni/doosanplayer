@@ -45,8 +45,9 @@ button {border-radius:5px;}
   color:#fff;
   box-sizing: border-box;
 }
-
-
+.btn:hover{
+  background-color: rgba(255,255,255,.3);
+}
 
 
 /*PutScore.js*/
@@ -70,13 +71,24 @@ button {border-radius:5px;}
   color:#c7c6c6;
   font-size:0.875em;
 }
-.putGrade {background-color: #ed1c24; color:#fff;}
-.putGrade:hover {background-color: #da1b23}
+.putGrade {
+  background-color: #ed1c24;
+  color:#fff;
+}
+.putGrade:hover {
+  background-color: #da1b23
+}
 
 
 
 /*PitcherList.js*/
-.pitcherInfo {background-color: #}
+.pitcherInfo {
+  background-color: #
+}
+
+
+/*List.js*/
+h2 {color:#ed1c24;}
 
 
 
