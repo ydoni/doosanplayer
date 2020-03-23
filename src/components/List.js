@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 import PitcherList from './PitcherList.js';
-// import HitterList from './HitterList.js';
+import HitterList from './HitterList.js';
 
 class List extends Component {
 
@@ -13,14 +13,18 @@ class List extends Component {
 			listp => (<PitcherList key={listp.id} listp={listp} />)
 		);
 
+		const list_hitter = data.map (
+			listh => (<HitterList key={listh.id} listh={listh} />)
+		);
+
 		// const list_hitter = data.map (
 		// 	info => (<HitterList />)
 		// );
 
 		return(
-			<div>
-			
+			<div>			
 				{list_pitch}
+				{list_hitter}
 			</div>
 		);
 	}
