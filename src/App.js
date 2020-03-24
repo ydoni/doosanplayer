@@ -38,6 +38,24 @@ class App extends Component {
     });
   }
 
+  removePlayer = (id) => {
+    const {playerlist} = this.state;
+
+    this.setState({
+      playerlist : playerlist.filter(listp => listp.id !== id)
+    });
+  }
+
+  modifyPlayer = (id,data) => {
+    const {playerlist} = this.state;
+
+    this.setState({
+      playerlist : playerlist.map(
+        listp => id === listp.id ?
+        {id:id, playerNum:data.playerNum, inning:data.inning,
+        score:data.score, era:((data.score*9)/data.inning).toFixed(2)} : listp)
+    });
+  }
 
 
 //<button className="butPitch" onClick={location.href='PitcherList.js'}>투수</button>
@@ -67,7 +85,7 @@ class App extends Component {
             <h2>투수 평균 자책점 (ERA)</h2>
             <p>이닝수와 자책점으로 평균 자책점을 계산합니다.</p>
             <PutScore grade={this.getScore} />
-            <List data = {playerlist} />
+            <List data = {playerlist} onRemove={this.removePlayer} onModify={this.modifyPlayer} />
           </div>
 
 

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,500,700,800');
 * {margin:0; padding:0; font-family: 'Nanum Gothic', 'serif'; }
 body {background-color: #131230; font-size:.875em; }
+ul, li {list-style: none;}
 h1 {font-weight:800; font-size:2.1em;}
 button {border-radius:5px;}
 
@@ -86,9 +87,30 @@ h2 {
 
 
 /*PitcherList.js*/
-.pitcherInfo {
-  background-color: #
+.playerbox {
+  width:250px;
+  height:320px;
+  border:.9px solid #c7c6c6;
+  float:left;
+
 }
+
+.pitcherInfo {
+  background-color: #ebebeb;
+  height:80px;
+}
+
+.button_container .button_p{
+  width:20px;
+  height:20px;
+  cursor:pointer;
+  border:.5px solid #ddd;
+  background-color:transparent;
+  border-radius:0;
+
+}
+
+
 
 
 /*List.js*/

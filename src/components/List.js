@@ -1,30 +1,34 @@
 import React, {Component} from 'react';
 
 import PitcherList from './PitcherList.js';
-import HitterList from './HitterList.js';
+// import HitterList from './HitterList.js';
 
 class List extends Component {
 
+
+
 	render(){
 
-		const {data} = this.props;
+		const {data, onRemove} = this.props;
 
 		const list_pitch = data.map (
-			listp => (<PitcherList key={listp.id} listp={listp} />)
+			listp => (<PitcherList key={listp.id} listp={listp} onRemove={onRemove}/>)
 		);
 
-		const list_hitter = data.map (
-			listh => (<HitterList key={listh.id} listh={listh} />)
-		);
+		// const list_hitter = data.map (
+		// 	listh => (<HitterList key={listh.id} listh={listh} onRemove={onRemove}/>)
+		// );
 
 		// const list_hitter = data.map (
 		// 	info => (<HitterList />)
 		// );
 
+		// {list_hitter}
+
 		return(
 			<div>			
 				{list_pitch}
-				{list_hitter}
+				
 			</div>
 		);
 	}
