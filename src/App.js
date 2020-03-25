@@ -10,20 +10,18 @@ class App extends Component {
   id=4;
 
   state = {
+    
     playerlist : [
     {id:0, playerNum:"50", inning:"5", score : "8", era:(this.score*9)/this.inning},
     {id:1, playerNum:"50", inning:"", score : ""},
     {id:2, playerNum:"50", inning:"", score : ""},
     {id:3, playerNum:"50", inning:"", score : ""},
-    ]
+    ],
+
+    
   }
 
-  changePitch = (e) => {
-
-    this.setState({
-
-    });
-  }
+  
 
   getScore = (data) => {
     
@@ -46,7 +44,7 @@ class App extends Component {
     });
   }
 
-  modifyPlayer = (id,data) => {
+  modifyPlayer = (id, data) => {
     const {playerlist} = this.state;
 
     this.setState({

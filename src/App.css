@@ -3,7 +3,7 @@
 body {background-color: #131230; font-size:.875em; }
 ul, li {list-style: none;}
 h1 {font-weight:800; font-size:2.1em;}
-button {border-radius:5px;}
+button {border-radius:6px;}
 
 /*App.js*/
 h2 {
@@ -32,7 +32,7 @@ h2 {
 
 
 .players {
-  width:80%;
+  width:1000px;
   height:1000px;
   background-color: #fff;
   margin:0 auto;
@@ -44,7 +44,7 @@ h2 {
 
 .btn {
   cursor:pointer;
-  padding:5.5px 22px;
+  padding:6.5px 20px;
   background-color: transparent;
   border:.8px solid #fff;
   color:#fff;
@@ -52,6 +52,9 @@ h2 {
 }
 .btn:hover{
   background-color: rgba(255,255,255,.3);
+}
+.btnbox .butPitch {
+  margin-right:5px;
 }
 
 
@@ -92,6 +95,7 @@ h2 {
   height:320px;
   border:.9px solid #c7c6c6;
   float:left;
+  margin-right:5px;
 
 }
 
@@ -100,16 +104,37 @@ h2 {
   height:80px;
 }
 
+.pitcherInfo li:nth-child(4){
+  color:#ed1c24;
+}
+.pitcherInfo li:nth-child(5){
+  color:#ed1c24;
+}
+
+
 .button_container .button_p{
   width:20px;
   height:20px;
   cursor:pointer;
-  border:.5px solid #ddd;
   background-color:transparent;
   border-radius:0;
 
 }
 
+.button_container .change {
+  color:#131230;
+  border:.5px solid #131230;
+}
+.button_conatiner .change:hover {
+  color:#fff;
+  background-color: #131230;
+}
+
+
+.button_container .delete {
+  color:#ed1c24;
+  border:.5px solid #ed1c24;
+}
 
 
 

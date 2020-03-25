@@ -5,14 +5,12 @@ import PitcherList from './PitcherList.js';
 
 class List extends Component {
 
-
-
 	render(){
 
-		const {data, onRemove} = this.props;
+		const {data, onRemove, onModify} = this.props;
 
 		const list_pitch = data.map (
-			listp => (<PitcherList key={listp.id} listp={listp} onRemove={onRemove}/>)
+			listp => (<PitcherList key={listp.id} listp={listp} onRemove={onRemove} onModify={onModify} />)
 		);
 
 		// const list_hitter = data.map (

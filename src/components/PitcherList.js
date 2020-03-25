@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 class PitcherList extends Component {
 
 	state = {
+		editing : false,
 		playerNum : "",
 		inning : "",
 		score : "",
@@ -39,8 +40,8 @@ class PitcherList extends Component {
 			//이전 editing 값은 false 이면서 동시에 현재 state값은 true일 때
 			this.setState({
 				playerNum : listp.playerNum, inning : listp.inning,
-				score : listp.score
-			})
+				score : listp.score, era : listp.era
+			});
 		}
 
 		//조건 2 (상황 2 : editing 값이 true로 전환될 때 이 조건에 걸린다) 
@@ -48,12 +49,37 @@ class PitcherList extends Component {
 			//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때
 
 			//onModify(파라미터1 , 파라미터2); 호출
-			onModify(listp.id , {stu_num : this.state.stu_num, stu_name : this.state.stu_name,
-				department : this.state.department, avg_grade : this.state.avg_grade })
+			onModify(listp.id , {playerNum : this.state.playerNum, inning : this.state.inning,
+				score : this.state.score, era : this.state.era })
 		}
 	}
 
 	render(){
+
+		const {editing} = this.state;
+
+		if (editing) {
+			return (
+				<div>
+					<div>
+						<input placeholder = "번호 수정" name = "playerNum"
+							value = {this.state.playerNum} onChange = {this.onChangeValue}/>
+					</div>
+					<div>
+						<input placeholder = "이닝 수 재입력" name = "inning"
+							value = {this.state.inning} onChange = {this.onChangeValue}/>
+					</div>
+					<div>
+						<input placeholder = "자책점 재입력" name = "score"
+							value = {this.state.score} onChange = {this.onChangeValue}/>
+					</div>
+					<button onClick={this.modifyPlayer}>수정</button>
+				</div>
+			);
+		}
+
+
+
 
 		const {playerNum, inning, score, era} = this.props.listp;
 
@@ -64,10 +90,11 @@ class PitcherList extends Component {
 		return(
 			<div className="playerbox">
 				<ul className="pitcherInfo">
-					<li>선수번호{playerNum}</li>
-					<li>이닝수{inning}</li>
-					<li>점수{score}</li>
-					<li>ERA {era}</li>
+					<li>선수번호 {playerNum}</li>
+					<li>이닝수 {inning}</li>
+					<li>점수 {score}</li>
+					<li>ERA</li>
+					<li>{era}</li>
 				</ul>
 				<div className="button_container">
 					<button className="change button_p" onClick = {this.modifyPlayer}>V</button>
