@@ -7,18 +7,23 @@ import './App.css';
 
 class App extends Component {
 
-  id=4;
+  id=2;
 
-  state = {
-    
+  state = {    
     playerlist : [
-    {id:0, playerNum:"50", inning:"5", score : "8", era:(this.score*9)/this.inning},
+    {id:0, playerNum:"50", playerName:"이영하", inning:5, score : 8,era:parseInt((this.score*9)/this.inning)},
     {id:1, playerNum:"50", inning:"", score : ""},
-    {id:2, playerNum:"50", inning:"", score : ""},
-    {id:3, playerNum:"50", inning:"", score : ""},
     ],
+  }
 
-    
+  calcuEra = (id, data) => {
+    const {playerlist} = this.state;
+
+    this.setState({
+      playerlist : playerlist.map(
+        listp => id === listp.id ?
+        {era:((data.score*9)/data.inning).toFixed(2)} : listp)
+    });
   }
 
   
@@ -83,7 +88,7 @@ class App extends Component {
             <h2>투수 평균 자책점 (ERA)</h2>
             <p>이닝수와 자책점으로 평균 자책점을 계산합니다.</p>
             <PutScore grade={this.getScore} />
-            <List data = {playerlist} onRemove={this.removePlayer} onModify={this.modifyPlayer} />
+            <List data = {playerlist} calEra = {this.calcuEra} onRemove={this.removePlayer} onModify={this.modifyPlayer} />
           </div>
 
 

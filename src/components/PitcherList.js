@@ -5,10 +5,14 @@ class PitcherList extends Component {
 	state = {
 		editing : false,
 		playerNum : "",
+		playerName : "",
 		inning : "",
 		score : "",
-		era : ""
+		era :""
 	}
+
+	
+ 
 
 	//삭제버튼
 	removePlayer = () => {
@@ -39,7 +43,7 @@ class PitcherList extends Component {
 		if (!prevState.editing && this.state.editing) {
 			//이전 editing 값은 false 이면서 동시에 현재 state값은 true일 때
 			this.setState({
-				playerNum : listp.playerNum, inning : listp.inning,
+				playerNum : listp.playerNum, playerName : listp.playerName, inning : listp.inning,
 				score : listp.score, era : listp.era
 			});
 		}
@@ -47,10 +51,13 @@ class PitcherList extends Component {
 		//조건 2 (상황 2 : editing 값이 true로 전환될 때 이 조건에 걸린다) 
 		if (prevState.editing && !this.state.editing) {
 			//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때
-
+			
 			//onModify(파라미터1 , 파라미터2); 호출
-			onModify(listp.id , {playerNum : this.state.playerNum, inning : this.state.inning,
-				score : this.state.score, era : this.state.era })
+			onModify(listp.id , {playerNum : this.state.playerNum, 
+				inning : this.state.inning,	score : this.state.score, era : this.state.era })
+			this.setState({
+				playerName : listp.playerName
+			}); //이름은 수정 안되도록
 		}
 	}
 
@@ -60,17 +67,17 @@ class PitcherList extends Component {
 
 		if (editing) {
 			return (
-				<div>
+				<div className="playerbox">
 					<div>
-						<input placeholder = "번호 수정" name = "playerNum"
+						선수 번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
 							value = {this.state.playerNum} onChange = {this.onChangeValue}/>
 					</div>
 					<div>
-						<input placeholder = "이닝 수 재입력" name = "inning"
+						이닝 수 : <input placeholder = "이닝 수 재입력" name = "inning"
 							value = {this.state.inning} onChange = {this.onChangeValue}/>
 					</div>
 					<div>
-						<input placeholder = "자책점 재입력" name = "score"
+						자책점 : <input placeholder = "자책점 재입력" name = "score"
 							value = {this.state.score} onChange = {this.onChangeValue}/>
 					</div>
 					<button onClick={this.modifyPlayer}>수정</button>
@@ -81,7 +88,7 @@ class PitcherList extends Component {
 
 
 
-		const {playerNum, inning, score, era} = this.props.listp;
+		const {playerNum, playerName, inning, score, era} = this.props.listp;
 
 		// const list_pitch = data.map (
 		// 	info => (<)
@@ -91,6 +98,7 @@ class PitcherList extends Component {
 			<div className="playerbox">
 				<ul className="pitcherInfo">
 					<li>선수번호 {playerNum}</li>
+					<li>선수이름 {playerName}</li>
 					<li>이닝수 {inning}</li>
 					<li>점수 {score}</li>
 					<li>ERA</li>
