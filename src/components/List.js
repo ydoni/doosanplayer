@@ -7,10 +7,10 @@ class List extends Component {
 
 	render(){
 
-		const {data, onRemove, onModify, calEra} = this.props;
+		const {data, onRemove, onModify} = this.props;
 
 		const list_pitch = data.map (
-			listp => (<PitcherList key={listp.id} calEra={calEra} listp={listp} onRemove={onRemove} onModify={onModify} />)
+			listp => (<PitcherList key={listp.id} listp={listp} onRemove={onRemove} onModify={onModify} />)
 		);
 
 		// const list_hitter = data.map (

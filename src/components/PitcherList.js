@@ -6,13 +6,13 @@ class PitcherList extends Component {
 		editing : false,
 		playerNum : "",
 		playerName : "",
-		inning : "",
-		score : "",
-		era :""
+		inning : 0,
+		score : 0,
+		era : 0
 	}
 
 	
- 
+
 
 	//삭제버튼
 	removePlayer = () => {
@@ -50,14 +50,12 @@ class PitcherList extends Component {
 
 		//조건 2 (상황 2 : editing 값이 true로 전환될 때 이 조건에 걸린다) 
 		if (prevState.editing && !this.state.editing) {
-			//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때
+			//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때			
 			
 			//onModify(파라미터1 , 파라미터2); 호출
-			onModify(listp.id , {playerNum : this.state.playerNum, 
+			onModify(listp.id , {playerNum : this.state.playerNum, playerName: this.state.playerName,
 				inning : this.state.inning,	score : this.state.score, era : this.state.era })
-			this.setState({
-				playerName : listp.playerName
-			}); //이름은 수정 안되도록
+			
 		}
 	}
 
@@ -87,8 +85,9 @@ class PitcherList extends Component {
 
 
 
-
 		const {playerNum, playerName, inning, score, era} = this.props.listp;
+
+	
 
 		// const list_pitch = data.map (
 		// 	info => (<)
@@ -96,13 +95,13 @@ class PitcherList extends Component {
 
 		return(
 			<div className="playerbox">
+				<div className="playerimg"><img src=""/></div>
 				<ul className="pitcherInfo">
 					<li>선수번호 {playerNum}</li>
 					<li>선수이름 {playerName}</li>
 					<li>이닝수 {inning}</li>
-					<li>점수 {score}</li>
-					<li>ERA</li>
-					<li>{era}</li>
+					<li>자책점 {score}</li>
+					<li>ERA {era}</li>
 				</ul>
 				<div className="button_container">
 					<button className="change button_p" onClick = {this.modifyPlayer}>V</button>

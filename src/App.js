@@ -11,19 +11,9 @@ class App extends Component {
 
   state = {    
     playerlist : [
-    {id:0, playerNum:"50", playerName:"이영하", inning:5, score : 8,era:parseInt((this.score*9)/this.inning)},
+    {id:0, playerNum:"50", playerName:"이영하", inning:5, score : 8, era : ""},
     {id:1, playerNum:"50", inning:"", score : ""},
-    ],
-  }
-
-  calcuEra = (id, data) => {
-    const {playerlist} = this.state;
-
-    this.setState({
-      playerlist : playerlist.map(
-        listp => id === listp.id ?
-        {era:((data.score*9)/data.inning).toFixed(2)} : listp)
-    });
+    ]
   }
 
   
@@ -41,6 +31,18 @@ class App extends Component {
     });
   }
 
+
+  calcuEra = (id, data) => {
+    const {playerlist} = this.state;
+
+    this.setState({
+      playerlist : playerlist.map(
+        listp => id === listp.id ?
+        { era:((data.score*9)/data.inning).toFixed(2) } : listp)
+    });
+  }
+
+
   removePlayer = (id) => {
     const {playerlist} = this.state;
 
@@ -55,7 +57,7 @@ class App extends Component {
     this.setState({
       playerlist : playerlist.map(
         listp => id === listp.id ?
-        {id:id, playerNum:data.playerNum, inning:data.inning,
+        {id:id, playerNum:data.playerNum, playerName:data.playerName, inning:data.inning,
         score:data.score, era:((data.score*9)/data.inning).toFixed(2)} : listp)
     });
   }
@@ -88,7 +90,7 @@ class App extends Component {
             <h2>투수 평균 자책점 (ERA)</h2>
             <p>이닝수와 자책점으로 평균 자책점을 계산합니다.</p>
             <PutScore grade={this.getScore} />
-            <List data = {playerlist} calEra = {this.calcuEra} onRemove={this.removePlayer} onModify={this.modifyPlayer} />
+            <List data = {playerlist} onRemove={this.removePlayer} onModify={this.modifyPlayer} />
           </div>
 
 
