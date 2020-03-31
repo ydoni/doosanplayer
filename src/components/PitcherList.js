@@ -11,7 +11,11 @@ class PitcherList extends Component {
 		era : 0
 	}
 
-	
+	calcuEra = (id, data) => {
+	    const {listp, calEra} = this.state;
+
+	    calEra(listp.id);
+  	}
 
 
 	//삭제버튼
@@ -66,19 +70,21 @@ class PitcherList extends Component {
 		if (editing) {
 			return (
 				<div className="playerbox">
-					<div>
-						선수 번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
-							value = {this.state.playerNum} onChange = {this.onChangeValue}/>
+					<div className="pitcherInfo">
+						<div>
+							선수 번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
+								value = {this.state.playerNum} onChange = {this.onChangeValue}/>
+						</div>
+						<div>
+							이닝 수 : <input placeholder = "이닝 수 재입력" name = "inning"
+								value = {this.state.inning} onChange = {this.onChangeValue}/>
+						</div>
+						<div>
+							자책점 : <input placeholder = "자책점 재입력" name = "score"
+								value = {this.state.score} onChange = {this.onChangeValue}/>
+						</div>
+						<button onClick={this.modifyPlayer}>수정</button>
 					</div>
-					<div>
-						이닝 수 : <input placeholder = "이닝 수 재입력" name = "inning"
-							value = {this.state.inning} onChange = {this.onChangeValue}/>
-					</div>
-					<div>
-						자책점 : <input placeholder = "자책점 재입력" name = "score"
-							value = {this.state.score} onChange = {this.onChangeValue}/>
-					</div>
-					<button onClick={this.modifyPlayer}>수정</button>
 				</div>
 			);
 		}
@@ -89,19 +95,16 @@ class PitcherList extends Component {
 
 	
 
-		// const list_pitch = data.map (
-		// 	info => (<)
-		// );
-
 		return(
 			<div className="playerbox">
-				<div className="playerimg"><img src=""/></div>
+				<div className="playerimg"><img src="" alt=""/></div>
 				<ul className="pitcherInfo">
 					<li>선수번호 {playerNum}</li>
-					<li>선수이름 {playerName}</li>
-					<li>이닝수 {inning}</li>
-					<li>자책점 {score}</li>
-					<li>ERA {era}</li>
+					<li>선수이름 {playerName}</li>					
+					<li>이닝수 {inning}</li>					
+					<li>자책점 {score}</li>					
+					<li>ERA </li>
+					<li>{era}</li>
 				</ul>
 				<div className="button_container">
 					<button className="change button_p" onClick = {this.modifyPlayer}>V</button>
