@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PitcherList from './PitcherList.js';
+import axios from 'axios';
 // import HitterList from './HitterList.js';
 
 class List extends Component {
 
 	
+	
 
 	render(){
 
+
 		const {data, onRemove, onModify, onChangePitch, onChangeHit} = this.props;
-
-
 
 		const list_pitch = data.map (
 			listp => (

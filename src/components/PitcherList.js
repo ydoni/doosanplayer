@@ -11,28 +11,23 @@ class PitcherList extends Component {
 		era : 0
 	}
 
-	calcuEra = (id, data) => {
-	    const {listp, calEra} = this.state;
-
-	    calEra(listp.id);
-  	}
-
+	
 
 	//삭제버튼
 	removePlayer = () => {
-		const {listp, onRemove} = this.props;
+		const { listp, onRemove } = this.props;
 		onRemove(listp.id);
 	}
 
 
 	//수정버튼
 	modifyPlayer = () => {
-		const {editing} = this.state;
+		const { editing } = this.state;
 		this.setState ({ editing : !editing })
 	}
 
 	onChangeValue = (e) => {
-		const {name, value} = e.target;
+		const { name, value } = e.target;
 
 		this.setState({
 			[name] : value
@@ -40,7 +35,7 @@ class PitcherList extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState){
-		const {listp, onModify } = this.props;
+		const { listp, onModify } = this.props;
 
 		//조건 1 (상황 1 : editing 값이 false로 전환될 때 이 조건에 걸린다) 
 		//prevState : 이전의 값 
@@ -58,14 +53,14 @@ class PitcherList extends Component {
 			
 			//onModify(파라미터1 , 파라미터2); 호출
 			onModify(listp.id , {playerNum : this.state.playerNum, playerName: this.state.playerName,
-				inning : this.state.inning,	score : this.state.score, era : this.state.era })
+				inning : this.state.inning,	score : this.state.score, era : listp.era })
 			
 		}
 	}
 
 	render(){
 
-		const {editing} = this.state;
+		const { editing } = this.state;
 
 		if (editing) {
 			return (
@@ -100,9 +95,7 @@ class PitcherList extends Component {
 				<div className="playerimg"><img src="" alt=""/></div>
 				<ul className="pitcherInfo">
 					<li>선수번호 {playerNum}</li>
-					<li>선수이름 {playerName}</li>					
-					<li>이닝수 {inning}</li>					
-					<li>자책점 {score}</li>					
+					<li>선수이름 {playerName}</li>			
 					<li>ERA </li>
 					<li>{era}</li>
 				</ul>
