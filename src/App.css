@@ -94,7 +94,7 @@ h2 {
 /*PitcherList.js*/
 .playerbox {
   width:225px;
-  height:320px;
+  height:280px;
   border:.9px solid #c7c6c6;
   float:left;
   margin:0 5px 5px 0;
@@ -103,7 +103,10 @@ h2 {
 }
 .playerbox .playerimg{
   width:100%;
-  height:74.5%;
+  height:200px;
+}
+.playerbox .playerimg img {
+  width:225px;
 }
 
 .pitcherInfo {
@@ -111,15 +114,31 @@ h2 {
   bottom:0;
   background-color: #ebebeb;
   width:100%;
-  height:25.5%;
+  height:80px;
   border-top:1px solid #ed1c24;
+  letter-spacing:-1px;
 }
 
+.pitcherInfo li:nth-child(1){
+  color:#131230;
+  font-size:1.5em;
+  font-weight:bold;
+}
+.pitcherInfo li:nth-child(2){
+  color:#000;
+  font-size:1.2em;
+  font-weight:bold;
+}
+
+.pitcherInfo li:nth-child(3){
+  color:#ed1c24;
+  float:right;
+}
 .pitcherInfo li:nth-child(4){
   color:#ed1c24;
-}
-.pitcherInfo li:nth-child(5){
-  color:#ed1c24;
+  font-size:1.9em;
+  font-weight:bolder;
+  float:right;
 }
 
 .button_container {

@@ -4,6 +4,7 @@ class PitcherList extends Component {
 
 	state = {
 		editing : false,
+		image : "",
 		playerNum : "",
 		playerName : "",
 		inning : 0,
@@ -42,8 +43,12 @@ class PitcherList extends Component {
 		if (!prevState.editing && this.state.editing) {
 			//이전 editing 값은 false 이면서 동시에 현재 state값은 true일 때
 			this.setState({
-				playerNum : listp.playerNum, playerName : listp.playerName, inning : listp.inning,
-				score : listp.score, era : listp.era
+				image : listp.image,
+				playerNum : listp.playerNum,
+				playerName : listp.playerName,
+				inning : listp.inning,
+				score : listp.score,
+				era : listp.era
 			});
 		}
 
@@ -52,9 +57,15 @@ class PitcherList extends Component {
 			//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때			
 			
 			//onModify(파라미터1 , 파라미터2); 호출
-			onModify(listp.id , {playerNum : this.state.playerNum, playerName: this.state.playerName,
-				inning : this.state.inning,	score : this.state.score, era : listp.era })
-			
+			onModify(listp.id ,{
+				image : this.state.image,
+				playerNum : this.state.playerNum,
+				playerName: this.state.playerName,
+				inning : this.state.inning,
+				score : this.state.score,
+				era : listp.era
+			})	
+
 		}
 	}
 
@@ -65,6 +76,7 @@ class PitcherList extends Component {
 		if (editing) {
 			return (
 				<div className="playerbox">
+				<div className="playerimg"><img src={this.state.image} alt="edit profile"/></div>
 					<div className="pitcherInfo">
 						<div>
 							선수 번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
@@ -86,16 +98,16 @@ class PitcherList extends Component {
 
 
 
-		const {playerNum, playerName, inning, score, era} = this.props.listp;
+		const {image, playerNum, playerName, inning, score, era} = this.props.listp;
 
 	
 
 		return(
 			<div className="playerbox">
-				<div className="playerimg"><img src="" alt=""/></div>
+				<div className="playerimg"><img src={image} alt="profile"/></div>
 				<ul className="pitcherInfo">
-					<li>선수번호 {playerNum}</li>
-					<li>선수이름 {playerName}</li>			
+					<li>{playerNum}.</li>
+					<li>{playerName}</li>			
 					<li>ERA </li>
 					<li>{era}</li>
 				</ul>
