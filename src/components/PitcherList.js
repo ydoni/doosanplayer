@@ -4,7 +4,7 @@ class PitcherList extends Component {
 
 	state = {
 		editing : false,
-		image : "",
+		image : null,
 		playerNum : "",
 		playerName : "",
 		inning : 0,
@@ -12,7 +12,10 @@ class PitcherList extends Component {
 		era : 0
 	}
 
-	
+	// -- 버튼 클릭 시 성적순으로 정렬
+
+
+
 
 	//삭제버튼
 	removePlayer = () => {
@@ -77,20 +80,21 @@ class PitcherList extends Component {
 			return (
 				<div className="playerbox">
 				<div className="playerimg"><img src={this.state.image} alt="edit profile"/></div>
-					<div className="pitcherInfo">
+					<div className="pitcherInfo changeInput">
+					<div className ="changeInputBox">
+						<p>▶ 성적 수정란</p>
 						<div>
-							선수 번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
+							번호 수정 : <input placeholder = "번호 수정" name = "playerNum"
 								value = {this.state.playerNum} onChange = {this.onChangeValue}/>
 						</div>
 						<div>
 							이닝 수 : <input placeholder = "이닝 수 재입력" name = "inning"
 								value = {this.state.inning} onChange = {this.onChangeValue}/>
-						</div>
-						<div>
-							자책점 : <input placeholder = "자책점 재입력" name = "score"
+							&nbsp; &nbsp; 자책점 : <input placeholder = "자책점 재입력" name = "score"
 								value = {this.state.score} onChange = {this.onChangeValue}/>
 						</div>
-						<button onClick={this.modifyPlayer}>수정</button>
+						</div>
+						<button className = "change button_p" onClick={this.modifyPlayer}>V</button>
 					</div>
 				</div>
 			);
@@ -105,12 +109,18 @@ class PitcherList extends Component {
 		return(
 			<div className="playerbox">
 				<div className="playerimg"><img src={image} alt="profile"/></div>
-				<ul className="pitcherInfo">
-					<li>{playerNum}.</li>
-					<li>{playerName}</li>			
-					<li>ERA </li>
-					<li>{era}</li>
-				</ul>
+				<div className="pitcherInfo">
+					<div className="pitcherInfoCon">
+						<ul className = "numName">
+							<li className = "playerNum">{playerNum}.</li>
+							<li className = "playerName">{playerName}</li>
+						</ul>
+						<ul className ="era">			
+							<li>ERA </li>
+							<li>{era.toFixed(2)}</li>
+						</ul>
+					</div>
+				</div>
 				<div className="button_container">
 					<button className="change button_p" onClick = {this.modifyPlayer}>V</button>
 					<button className="delete button_p" onClick = {this.removePlayer}>X</button>

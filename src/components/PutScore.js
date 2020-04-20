@@ -1,30 +1,14 @@
 import React, {Component} from 'react';
+import axios, { post } from 'axios';
 
 class PutScore extends Component {
 
-	state = {
-		inputhitter:false,
-		playerNum:"",
-		playerName:"",
-		inning:"",
-		score:"",
-		era:"",
-		hits:"",
-		bats:"",
-		batavg:""
-	}
-
-	onChangeValue = (e) => {
-		this.setState({
-			[e.target.name] : e.target.value
-		});
-	}
-
-	onSubmitValue = (e) => {
-		e.preventDefault();
-
-		this.props.grade(this.state);
-		this.setState({
+	constructor(props){
+		super(props);
+		this.state = {
+			inputhitter:false,
+			file:null,
+			fileName:"",
 			playerNum:"",
 			playerName:"",
 			inning:"",
@@ -33,60 +17,76 @@ class PutScore extends Component {
 			hits:"",
 			bats:"",
 			batavg:""
-			// era : (this.state.score*9)/this.state.inning
-			// bat : this.state.hits/this.statebats
-		});
-	}	
+		}
+	}
 	
 
+	onChangeValue = (e) => {
+		this.setState({
+			[e.target.name] : e.target.value
+		});
+	}
 
-	// -> 포지션 별로 input 값 다르게 받기 위한 함수
-	// componentDidUpdate(prevProps, prevState){
-	// 	const { onSubmitPitcher, onSubmitHitter } = this.props.grade;
+	handleFileChange = (e) => {
+		// const input = document.memberform.e.target.file;
+		// const fReader = new FileReader();
+		// fReader.readAsDataURL(input.e.target.files[0]);
+		// fReader.onloadend = (e) =>{
+		// 	document.memberform.image.src = e.target.result;
+		// }
+		this.setState({
+			file : e.target.files[0],
+			fileName : e.target.value
+		});
+	}
 
-	// 	//조건 1 (상황 1 : editing 값이 false로 전환될 때 이 조건에 걸린다) 
-	// 	//prevState : 이전의 값 
-	// 	if (!prevState.inputhitter && this.state.inputhitter) {
-	// 		//이전 editing 값은 false 이면서 동시에 현재 state값은 true일 때
-	// 		onSubmitPitcher = (e) => {
-	// 			e.preventDefault();
+	onSubmitValue = (e) => {
+		e.preventDefault();
 
-	// 			this.props.grade(this.playerlist_p.state);
-	// 			this.setState({
-	// 				playerNum:"",
-	// 				playerName:"",
-	// 				inning:"",
-	// 				score:"",
-	// 				era:""
-	// 			});
-	// 			console.log("투수 입력값");		
-	// 		}
-			
-	// 	}
+		this.addCustomer()
+		.then((response) => {
+			console.log("addCustomer메소드",response.data);			
+		})
+		.catch((error) => {
+			console.log("addCustomer메소드에러",error);
+		})
+		this.props.grade(this.state); //App.js 에 전달
 
-	// 	//조건 2 (상황 2 : editing 값이 true로 전환될 때 이 조건에 걸린다) 
-	// 	if (prevState.inputhitter && !this.state.inputhitter) {
-	// 		//이전 editing 값은 true 이면서 동시에 현재 state값은 false일 때
+		this.setState({
+			file:null,
+			playerNum:"",
+			playerName:"",
+			inning:"",
+			score:"",
+			era:""			
+		});
+	}
 
-	// 		//onUpdate(파라미터1 , 파라미터2); 호출
-	// 		onSubmitHitter= (e) => {
-	// 			e.preventDefault();
 
-	// 			this.props.grade(this.playerlist_h.state);
-	// 			this.setState({
-	// 				playerNum:"",
-	// 				playerName:"",
-	// 				hits:"",
-	// 				bats:"",
-	// 				batavg:""
-	// 			});
-	// 			console.log("타자 입력값");
-	// 		}
-				
-	// 	}
-
-	// }
-
+	// 이미지 파일 업로드를 사용하기 위해서는 formdata로 만들어줘야 multer에 인식한다.
+	addCustomer = () => {
+		
+		const formData = new FormData();
+		formData.append('image', this.state.file);
+		formData.append('playerNum', this.state.playerNum);
+		formData.append('playerName', this.state.playerName);
+		formData.append('inning', this.state.inning);
+		formData.append('score', this.state.score);
+		formData.append('era', this.state.era);
+		const config = {
+			headers: {
+			'content-type': 'multipart/form-data'
+			}
+		}
+		return axios.post("/api/add", formData)
+		.then(res => {
+			console.log("addcustomer성공");
+		})
+		.catch(err => {
+			console.log("에러");
+		})
+	}
+	
 
 	render (){
 
@@ -131,7 +131,7 @@ class PutScore extends Component {
 		return (
 
 			<form className ="inputGrade" onSubmit = {this.onSubmitValue}>
-				<span>성적 입력 ▶</span>
+				<span>성적 입력 ▶</span>				
 				<input
 					placeholder = "선수번호 입력"
 					name = "playerNum"
@@ -155,6 +155,15 @@ class PutScore extends Component {
 					name = "score"
 					value = {this.state.score}
 					onChange = {this.onChangeValue}
+				/>
+				<input
+					placeholder = "프로필 사진 첨부"
+					className = "file"
+					type = "file"
+					name = "file"
+					file = {this.state.file}
+					value = {this.state.fileName}
+					onChange = {this.handleFileChange}
 				/>
 				<button className = "btn putGrade" type = "submit">등록</button>
 

@@ -1,6 +1,9 @@
 
 //설치한 express framework 를 사용하겠다는 명시
 const express = require('express'); //상수선언 require : 패키지 불러오기
+const fs = require('fs');
+const data = fs.readFileSync('./database.json');
+const conf = JSON.parse(data);
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express(); //express를 이용해 app(웹 프로그램)을 생성한다.
@@ -15,10 +18,15 @@ const connection = mysql.createConnection({
 });
 
 
+// 사진 업로드를 위한 설정
+const multer = require('multer');
+const upload = multer({dest:'./upload/'});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+app.use('/image', express.static('./upload')); // 사진 업로드를 위한 설정
 
 connection.connect();
 
@@ -42,13 +50,13 @@ app.all('/*', (req,res,next) => {
 //클라이언트에서 주소값으로 들어온 요청을 처리하는 함수
 //요청객체와 응답객체 (request response)
 //요청 데이터는 req 안에, 그 요청에 대한 응답은 res를 통해서
-app.get('/api/pitcherlist', (req, res, next) => {
+app.get('/api/pitcherlist', (req, res) => {
 
 	let data={};
 	let query="SELECT * FROM doosan";
 
 
-	connection.query(query,function(error, results){
+	connection.query((query) , (error, results) => {
 		if (error) {
 			console.log("에러 발생",error);
 		} else {
@@ -57,57 +65,22 @@ app.get('/api/pitcherlist', (req, res, next) => {
 			res.json(data);
 		}
 	});
-
-
-	// --  임시 데이터 등록
- 	//  	res.send([
-	// 	{ // 1번 id 선수
-	// 		'id' : 0,
-	// 		'playerName' : '이영하',
-	// 		'playerNum' : '50',
-	// 		'inning' : 5,
-	// 		'score' : 2,
-	// 		'era' : ''
-	// 	},
-	// 	{ // 2번 id 선수
-	// 		'id' : 1,
-	// 		'playerName' : '유희관',
-	// 		'playerNum' : '29',
-	// 		'inning' : 6,
-	// 		'score' : 2.1,
-	// 		'era' : ''
-	// 	},
-	// 	{ // 3번 id 선수
-	// 		'id' : 2,
-	// 		'playerName' : '장원준',
-	// 		'playerNum' : '28',
-	// 		'inning' : 3,
-	// 		'score' : 1.1,
-	// 		'era' : ''
-	// 	},
-	// 	{ // 4번 id 선수
-	// 		'id' : 3,
-	// 		'playerName' : '함덕주',
-	// 		'playerNum' : '1',
-	// 		'inning' : 2.4,
-	// 		'score' : 2.1,
-	// 		'era' : ''
-	// 	}
-	// ]);
+	
 });
 
 
 
 // -- 프론트로부터 넘겨받은 데이터를 DB에 저장하는 라우터
-app.post('/api/add',(req,res) => {
+app.post('/api/add', upload.single('image'), (req,res) => {
 	console.log("add 요청 들어옴");
+	let image = '/image/' + req.file.filename; //선수이미지
 	let playerNum = req.body.playerNum ; //선수번호
 	let playerName = req.body.playerName ; //선수이름
 	let inning = req.body.inning ; //이닝수
 	let score = req.body.score; //자책점
 	let era = req.body.era; //평균자책점
 
-	connection.query("INSERT INTO doosan (playerNum, playerName, inning, score) VALUES ('" +playerNum+ "', '" +playerName+ "', '" +inning+ "', '" +score+ "')", (error,results) => {    // mysql쿼리문연결
+	connection.query("INSERT INTO doosan (image, playerNum, playerName, inning, score) VALUES ('" +image+ "', '" +playerNum+ "', '" +playerName+ "', '" +inning+ "', '" +score+ "')", (error,results) => {    // mysql쿼리문연결
 
 		if (error) {
 			console.log("에러발생 : ",error);
