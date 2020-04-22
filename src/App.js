@@ -51,19 +51,16 @@ class App extends Component {
 
   // -- 버튼 클릭 시 성적순으로 정렬
 
-
-  changeListOrder = (e) => {
+  sortOrder = () => {
     const {playerlist_p} = this.state;
-    console.log(playerlist_p);
+    console.log("최종",playerlist_p);
     this.setState({
-      // playerlist_p : playerlist_p.concat(era)
-      // sort((a, b) => b - a);
-      // playerlist_p.era.sort();
+      // listsort:playerlist_p.sort((a,b)=>(a.id - b.id))
     });
-  }
     
+  }
 
-  // }
+
 
 
   // ------ CRUD 기능 메소드
@@ -198,7 +195,7 @@ class App extends Component {
                 onModify={this.modifyPlayer}
                 onChangePitch = {this.changePitcher}
                 onChangeHit = {this.changeHitter}
-                onSortOrder = {this.changeListOrder}
+                onSortOrder = {this.sortOrder}
               />
               
             </div>

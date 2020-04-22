@@ -2,8 +2,6 @@
 //설치한 express framework 를 사용하겠다는 명시
 const express = require('express'); //상수선언 require : 패키지 불러오기
 const fs = require('fs');
-const data = fs.readFileSync('./database.json');
-const conf = JSON.parse(data);
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express(); //express를 이용해 app(웹 프로그램)을 생성한다.

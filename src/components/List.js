@@ -6,22 +6,28 @@ import axios from 'axios';
 
 class List extends Component {
 
-	// changeListOrder = (e) => {
-		
-	// }
-	
+	constructor(props) {
+		super(props);
+		this.state = {isToggleOn : true};
+		this.sortOrder = this.sortOrder.bind(this);
+	}
 
-	render(){
+	//성적 높은 순 정렬
+	sortOrder = (e) => {
+		// e.preventDefault();
+		const { data, onSortOrder } = this.props;	    
+	    const listsort = data.sort(
+	    	(a,b) => (a.era - b.era)
+	    );
+	    console.log("sort후데이터",listsort);
+	    onSortOrder(listsort);
+	    this.setState(state => ({
+	      	isToggleOn: !state.isToggleOn 
+	      	// listsort : listsort.sort((a,b) => (a.id - b.id))
+	  	}));
+	}
 
-		// changeListOrder = (e) => {
-		//     const {playerlist_p} = this.state;
-		//     console.log(playerlist_p);
-		//     this.setState({
-		//       // playerlist_p : playerlist_p.concat(era)
-		//       // sort((a, b) => b - a);
-		//       // playerlist_p.era.sort();
-		//     });
-  // 		}
+	render(){		
 
 		const {data, onRemove, onModify, onChangePitch, onChangeHit, onSortOrder} = this.props;
 
@@ -35,12 +41,17 @@ class List extends Component {
 					onChangePitch = {onChangePitch}
 				/>				
 			)
-		);		
+		);
+
+		
+		
 
 		return(
 			<Router>
 				<div>
-				        
+				    <button onClick = {this.sortOrder}>
+				    	{this.state.isToggleOn ? '성적순' : '등록순'} 정렬
+				    </button>    
 					<div className="playerBigbox">
 						{list_pitch}
 					</div>
