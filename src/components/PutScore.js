@@ -28,12 +28,7 @@ class PutScore extends Component {
 	}
 
 	handleFileChange = (e) => {
-		// const input = document.memberform.e.target.file;
-		// const fReader = new FileReader();
-		// fReader.readAsDataURL(input.e.target.files[0]);
-		// fReader.onloadend = (e) =>{
-		// 	document.memberform.image.src = e.target.result;
-		// }
+		
 		this.setState({
 			file : e.target.files[0],
 			fileName : e.target.value
@@ -43,29 +38,7 @@ class PutScore extends Component {
 	onSubmitValue = (e) => {
 		e.preventDefault();
 
-		this.addCustomer()
-		.then((response) => {
-			console.log("addCustomer메소드",response.data);			
-		})
-		.catch((error) => {
-			console.log("addCustomer메소드에러",error);
-		})
-		this.props.grade(this.state); //App.js 에 전달
-
-		this.setState({
-			file:null,
-			playerNum:"",
-			playerName:"",
-			inning:"",
-			score:"",
-			era:""			
-		});
-	}
-
-
-	// 이미지 파일 업로드를 사용하기 위해서는 formdata로 만들어줘야 multer에 인식한다.
-	addCustomer = () => {
-		
+		// 이미지 파일 업로드를 사용하기 위해서는 formdata로 만들어줘야 multer에 인식한다.
 		const formData = new FormData();
 		formData.append('image', this.state.file);
 		formData.append('playerNum', this.state.playerNum);
@@ -78,14 +51,27 @@ class PutScore extends Component {
 			'content-type': 'multipart/form-data'
 			}
 		}
-		return axios.post("/api/add", formData)
+		return axios.post("http://localhost:5000/api/add", formData)
 		.then(res => {
-			console.log("addcustomer성공");
+			console.log("addcustomer성공",res.data);
+			this.props.grade(this.state);
 		})
 		.catch(err => {
 			console.log("에러");
 		})
+		// this.grade(this.state); //App.js 에 전달
+
+		this.setState({
+			file:null,
+			fileName:"",
+			playerNum:"",
+			playerName:"",
+			inning:"",
+			score:"",
+			era:""
+		});
 	}
+	
 	
 
 	render (){
