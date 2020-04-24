@@ -85,23 +85,41 @@ class App extends Component {
   // 선수 등록 메소드
   getScore = (data) => {
     console.log("전달받은 데이터 확인용: ", data);
-    axios.post('http://localhost:5000/api/add',
-      { image : data.file , playerNum : data.playerNum , playerName : data.playerName , inning : data.inning , score : data.score , era : ((data.score*9)/data.inning) }
-    )
 
-    .then((response) => {
-
-      const {playerlist_p} = this.state;
+    const {playerlist_p} = this.state;
+    
+    this.setState({
+      playerlist_p : playerlist_p.concat({
+        image : data.file ,
+        playerNum : data.playerNum ,
+        playerName : data.playerName ,
+        inning : data.inning ,
+        score : data.score ,
+        era : ((data.score*9)/data.inning)
+      })
       
-      console.log(response);
-      if (response.data.result === 'success'){
-        this.getList();
-      }
-    })
+    });
+    this.getList();
+    console.log("getScore 메소드 리스트",playerlist_p);
+    
 
-    .catch((error) => {
-      console.log(error);
-    })
+    // axios.post('http://localhost:5000/api/add',
+    //   { image : data.file , playerNum : data.playerNum , playerName : data.playerName , inning : data.inning , score : data.score , era : ((data.score*9)/data.inning) }
+    // )
+
+    // .then((response) => {
+
+    //   const {playerlist_p} = this.state;
+      
+    //   console.log(response);
+    //   if (response.data.result === 'success'){
+    //     this.getList();
+    //   }
+    // })
+
+    // .catch((error) => {
+    //   console.log("선수등록메소드App.js 에러",error);
+    // })
 
     
   }  
