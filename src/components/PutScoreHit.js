@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios, { post } from 'axios';
 
-class PutScore extends Component {
+class PutScoreHit extends Component {
 
 	constructor(props){
 		super(props);
@@ -10,9 +10,9 @@ class PutScore extends Component {
 			fileName:"",
 			playerNum:"",
 			playerName:"",
-			inning:"",
-			score:"",
-			era:""
+			hits:"",
+			bats:"",
+			batavg:""
 		}
 	}
 	
@@ -41,17 +41,17 @@ class PutScore extends Component {
 		formData.append('image', this.state.file);
 		formData.append('playerNum', this.state.playerNum);
 		formData.append('playerName', this.state.playerName);
-		formData.append('inning', this.state.inning);
-		formData.append('score', this.state.score);
-		formData.append('era', this.state.era);
+		formData.append('hits', this.state.hits);
+		formData.append('bats', this.state.bats);
+		formData.append('batavg', this.state.batavg);
 		const config = {
 			headers: {
 			'content-type': 'multipart/form-data'
 			}
 		}
-		return axios.post("http://localhost:5000/api/add", formData)
+		return axios.post("http://localhost:5000/api/addhit", formData)
 		.then(res => {
-			console.log("투수 putScore 성공",res.data);
+			console.log("타자 putScore 성공",res.data);
 			this.props.grade(this.state);
 		})
 		.catch(err => {
@@ -64,15 +64,16 @@ class PutScore extends Component {
 			fileName:"",
 			playerNum:"",
 			playerName:"",
-			inning:"",
-			score:"",
-			era:""
+			hits:"",
+			bats:"",
+			batavg:""
 		});
 	}
 	
 	
 
 	render (){
+
 
 		return (
 
@@ -91,15 +92,15 @@ class PutScore extends Component {
 					onChange = {this.onChangeValue}
 				/>
 				<input
-					placeholder = "이닝수 입력"
-					name = "inning"
-					value = {this.state.inning}
+					placeholder = "안타수 입력"
+					name = "hits"
+					value = {this.state.hits}
 					onChange = {this.onChangeValue}
 				/>
 				<input
-					placeholder = "자책점 입력"
-					name = "score"
-					value = {this.state.score}
+					placeholder = "타수 입력"
+					name = "bats"
+					value = {this.state.bats}
 					onChange = {this.onChangeValue}
 				/>
 				<input
@@ -122,4 +123,4 @@ class PutScore extends Component {
 }
 
 
-export default PutScore;
+export default PutScoreHit;

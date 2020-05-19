@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PitcherList from './PitcherList.js';
+import HitterList from './HitterList.js';
 import axios from 'axios';
-// import HitterList from './HitterList.js';
+
 
 class List extends Component {
 
@@ -29,33 +30,55 @@ class List extends Component {
 
 	render(){		
 
-		const {data, onRemove, onModify, onChangePitch, onChangeHit, onSortOrder} = this.props;
+		const {data, onRemove, onModify, onSortOrder} = this.props;
 
-		const list_pitch = data.map (
+		const list = data.map (
 			listp => (
 				<PitcherList
 					key={listp.id}
 					listp={listp}
 					onRemove={onRemove}
 					onModify={onModify}
-					onChangePitch = {onChangePitch}
+				/>				
+			),
+			listh => (
+				<HitterList
+					key={listh.id}
+					listh={listh}
+					onRemove={onRemove}
+					onModify={onModify}
 				/>				
 			)
 		);
 
-		
+		console.log("list.js 데이터",data);
+
+		// const list_hitter = data.map (
+		// 	listh => (
+		// 		<HitterList
+		// 			key={listh.id}
+		// 			listh={listh}
+		// 			onRemove={onRemove}
+		// 			onModify={onModify}
+		// 			onChangeHit = {onChangeHit}
+		// 		/>				
+		// 	)
+		// );
+
+
+
+		//<button onClick = {this.sortOrder}>
+		//		    	{this.state.isToggleOn ? '성적순' : '등록순'} 정렬
+		//		    </button>
 		
 
 		return(
 			<Router>
 				<div>
-				    <button onClick = {this.sortOrder}>
-				    	{this.state.isToggleOn ? '성적순' : '등록순'} 정렬
-				    </button>    
+				        
 					<div className="playerBigbox">
-						{list_pitch}
+						{list}
 					</div>
-					<Route path='/PitcherList' component={PitcherList} />
 				</div>
 
 			</Router>

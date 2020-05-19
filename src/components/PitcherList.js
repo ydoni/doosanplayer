@@ -102,8 +102,8 @@ class PitcherList extends Component {
 
 
 
-		const {image, playerNum, playerName, inning, score, era} = this.props.listp;
-
+		const {image, playerNum, playerName, era} = this.props.listp;
+		
 	
 
 		return(
@@ -117,7 +117,7 @@ class PitcherList extends Component {
 						</ul>
 						<ul className ="era">			
 							<li>ERA </li>
-							<li>{era.toFixed(2)}</li>
+							<li>{era}</li>
 						</ul>
 					</div>
 				</div>

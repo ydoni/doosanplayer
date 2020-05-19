@@ -48,10 +48,12 @@ app.all('/*', (req,res,next) => {
 //클라이언트에서 주소값으로 들어온 요청을 처리하는 함수
 //요청객체와 응답객체 (request response)
 //요청 데이터는 req 안에, 그 요청에 대한 응답은 res를 통해서
+
+// -- 투수
 app.get('/api/pitcherlist', (req, res) => {
 
 	let data={};
-	let query="SELECT * FROM doosan";
+	let query="SELECT * FROM doosanpitcher";
 
 
 	connection.query((query) , (error, results) => {
@@ -66,9 +68,30 @@ app.get('/api/pitcherlist', (req, res) => {
 	
 });
 
+// -- 타자
+app.get('/api/hitterlist', (req, res) => {
+
+	let data={};
+	let query="SELECT * FROM doosanhitter";
+
+
+	connection.query((query) , (error, results) => {
+		if (error) {
+			console.log("에러 발생",error);
+		} else {
+			console.log("성공:",results);
+			data.playerlist_h=results;
+			res.json(data);
+		}
+	});
+	
+});
+
 
 
 // -- 프론트로부터 넘겨받은 데이터를 DB에 저장하는 라우터
+
+// -- 투수
 app.post('/api/add', upload.single('image'), (req,res) => {
 	console.log("add 요청 들어옴");
 	let image = '/image/' + req.file.filename; //선수이미지
@@ -78,7 +101,29 @@ app.post('/api/add', upload.single('image'), (req,res) => {
 	let score = req.body.score; //자책점
 	let era = req.body.era; //평균자책점
 
-	connection.query("INSERT INTO doosan (image, playerNum, playerName, inning, score) VALUES ('" +image+ "', '" +playerNum+ "', '" +playerName+ "', '" +inning+ "', '" +score+ "')", (error,results) => {    // mysql쿼리문연결
+	connection.query("INSERT INTO doosanpitcher (image, playerNum, playerName, inning, score) VALUES ('" +image+ "', '" +playerNum+ "', '" +playerName+ "', '" +inning+ "', '" +score+ "')", (error,results) => {    // mysql쿼리문연결
+
+		if (error) {
+			console.log("에러발생 : ",error);
+		} else {
+			console.log("저장결과 : ",results);
+			res.json({ result : 'success' });
+		}
+	});
+});
+
+
+// -- 타자
+app.post('/api/addhit', upload.single('image'), (req,res) => {
+	console.log("타자 add 요청 들어옴");
+	let image = '/image/' + req.file.filename; //선수이미지
+	let playerNum = req.body.playerNum ; //선수번호
+	let playerName = req.body.playerName ; //선수이름
+	let hits = req.body.hits ; //안타수
+	let bats = req.body.bats; //타수
+	let batavg = req.body.batavg; //타율
+
+	connection.query("INSERT INTO doosanhitter (image, playerNum, playerName, hits, bats) VALUES ('" +image+ "', '" +playerNum+ "', '" +playerName+ "', '" +hits+ "', '" +bats+ "')", (error,results) => {    // mysql쿼리문연결
 
 		if (error) {
 			console.log("에러발생 : ",error);
@@ -94,17 +139,39 @@ app.post('/api/add', upload.single('image'), (req,res) => {
 
 
 // -- 수정 처리 라우터
-
+// -- 투수
 app.put('/api/edit',(req,res)=> {
 	console.log("edit 요청 들어옴");
 	let id = req.body.id;
 	let playerNum = req.body.playerNum ; //선수번호
-	let playerName = req.body.playerName ; //선수이름
+	let playerName = req.body.playerName ; //선수이름	
 	let inning = req.body.inning ; //이닝수
 	let score = req.body.score; //자책점
 	let era = req.body.era; //평균자책점
 
-	connection.query("UPDATE doosan SET playerNum='"+playerNum+"', playerName='"+playerName+"', inning='"+inning+"', score='"+score+"'  WHERE id="+id,
+	connection.query("UPDATE doosanpitcher SET playerNum='"+playerNum+"', playerName='"+playerName+"', inning='"+inning+"', score='"+score+"'  WHERE id="+id,
+			(error,results) => {
+		if (error) {
+			console.log("에러발생 : ",error);
+		} else {
+			console.log("수정결과 : ",results);
+			res.json({result: 'success'});
+		}
+
+	});
+})
+
+// -- 타자
+app.put('/api/edithitter',(req,res)=> {
+	console.log("edit 요청 들어옴");
+	let id = req.body.id;
+	let playerNum = req.body.playerNum ; //선수번호
+	let playerName = req.body.playerName ; //선수이름
+	let hits = req.body.hits ; //안타수
+	let bats = req.body.bats; //타수
+	let batavg = req.body.batavg; //타율
+
+	connection.query("UPDATE doosanhitter SET playerNum='"+playerNum+"', playerName='"+playerName+"', hits='"+hits+"', bats='"+bats+"'  WHERE id="+id,
 			(error,results) => {
 		if (error) {
 			console.log("에러발생 : ",error);
@@ -120,11 +187,28 @@ app.put('/api/edit',(req,res)=> {
 
 
 // -- DB데이터 삭제하는 라우터
+// -- 투수
 app.delete('/api/delete/:id',(req,res) => {
 	console.log("delete 요청 들어옴");
 	let id = req.params.id; //주소값으로 받을 때는 params 객체를 사용한다.
 
-	connection.query("DELETE FROM doosan WHERE id="+id,(error,results)=>{
+	connection.query("DELETE FROM doosanpitcher WHERE id="+id,(error,results)=>{
+		if (error) {
+			console.log(error);
+			connection.end();
+		} else {
+			console.log(results);
+			res.json({result: 'success'});
+		}
+	});
+})
+
+// -- 타자
+app.delete('/api/deletehitter/:id',(req,res) => {
+	console.log("delete 요청 들어옴");
+	let id = req.params.id; //주소값으로 받을 때는 params 객체를 사용한다.
+
+	connection.query("DELETE FROM doosanhitter WHERE id="+id,(error,results)=>{
 		if (error) {
 			console.log(error);
 			connection.end();
