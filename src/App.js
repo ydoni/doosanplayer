@@ -279,7 +279,7 @@ class App extends Component {
       );
     }
 }
-//  // <Route exact path = '/'  component={Home}/>
+// <Route exact path = '/'  component={Home}/>
 // <Route exact path="/PutScore" component={PutScore} />
 // <Route exact path="/PutScoreHit" component={PutScoreHit} />
 export default App;
