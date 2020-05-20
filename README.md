@@ -10,6 +10,7 @@
 
 
 **개발 기능**
+
 CSS : 직접 작성
 React : 리액트의 CRUD 및 이미지 업로드 기능
 MySQL : DDL, DML의 SQL 언어로 데이터 등록
