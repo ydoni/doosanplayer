@@ -12,8 +12,12 @@
 **개발 기능**
 
 CSS : 직접 작성
+
 React : 리액트의 CRUD 및 이미지 업로드 기능
+
 MySQL : DDL, DML의 SQL 언어로 데이터 등록
+
+
 ![Untitled-1-01](https://user-images.githubusercontent.com/56074618/82452763-a89b5b80-9aea-11ea-949e-86124831cc3a.jpg)
 
 
