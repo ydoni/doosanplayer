@@ -53,21 +53,22 @@ class PutScoreHit extends Component {
 		.then(res => {
 			console.log("타자 putScore 성공",res.data);
 			this.props.grade(this.state);
+			this.setState({
+				file:null,
+				fileName:"",
+				playerNum:"",
+				playerName:"",
+				hits:"",
+				bats:"",
+				batavg:""
+			});
 		})
 		.catch(err => {
 			console.log("에러");
 		})
 		// this.grade(this.state); //App.js 에 전달
 
-		this.setState({
-			file:null,
-			fileName:"",
-			playerNum:"",
-			playerName:"",
-			hits:"",
-			bats:"",
-			batavg:""
-		});
+		
 	}
 	
 	

@@ -101,6 +101,7 @@ app.post('/api/add', upload.single('image'), (req,res) => {
 	let score = req.body.score; //자책점
 	let era = req.body.era; //평균자책점
 
+
 	connection.query("INSERT INTO doosanpitcher (image, playerNum, playerName, inning, score) VALUES ('" +image+ "', '" +playerNum+ "', '" +playerName+ "', '" +inning+ "', '" +score+ "')", (error,results) => {    // mysql쿼리문연결
 
 		if (error) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios, { post } from 'axios';
 
-class PutScore extends Component {
+class PutScorePit extends Component {
 
 	constructor(props){
 		super(props);
@@ -53,21 +53,22 @@ class PutScore extends Component {
 		.then(res => {
 			console.log("투수 putScore 성공",res.data);
 			this.props.grade(this.state);
+			this.setState({
+				file:null,
+				fileName:"",
+				playerNum:"",
+				playerName:"",
+				inning:"",
+				score:"",
+				era:""
+			});
 		})
 		.catch(err => {
 			console.log("에러");
 		})
 		// this.grade(this.state); //App.js 에 전달
 
-		this.setState({
-			file:null,
-			fileName:"",
-			playerNum:"",
-			playerName:"",
-			inning:"",
-			score:"",
-			era:""
-		});
+		
 	}
 	
 	
@@ -122,4 +123,4 @@ class PutScore extends Component {
 }
 
 
-export default PutScore;
+export default PutScorePit;
