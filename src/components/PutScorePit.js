@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios, { post } from 'axios';
+import axios from 'axios';
 
 class PutScorePit extends Component {
 
@@ -15,6 +15,8 @@ class PutScorePit extends Component {
 			era:""
 		}
 	}
+
+
 	
 
 	
@@ -113,7 +115,7 @@ class PutScorePit extends Component {
 					onChange = {this.handleFileChange}
 				/>
 				<button className = "btn putGrade" type = "submit">등록</button>
-
+				
 
 			</form>
 		);

@@ -1,10 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nanum+Gothic:400,500,700,800');
 * {margin:0; padding:0; font-family: 'Nanum Gothic', 'serif'; }
-body {background-color: #131230; font-size:.875em; height:1100px; }
+body {position:relative; background-color: #131230; font-size:.875em; height:1050px; }
 ul, li {list-style: none;}
 h1 {font-weight:800; font-size:2.1em;}
-button {border-radius:6px;}
-button:visited {border:none;}
+button {border-radius:8px;}
 
 /*App.js*/
 h2 {
@@ -17,18 +16,35 @@ h2 {
 .container {
   width:80%;
   margin:0 auto;
+
 }
 
-/*.bgimg {
-  background-image:url('./bg/png');
-}*/
+.bgimg {
+  width:20%;
+  position:absolute;
+  bottom:0;
+  left:0;
+  z-index:-1;
 
-.container .madeby {
-  font-size:.85em;
-  color:#fff;
+}
+
+
+footer {
+}
+footer ul {
   float:right;
+  margin-top:20px;
 }
-
+footer ul li {
+  float:left;
+}
+footer ul li:first-child{
+  margin-right:5px;
+}
+footer .icon img{
+  width:35px;
+  height:35px;
+}
 
 .container .titlebox {
   color:#fff;
@@ -59,7 +75,7 @@ h2 {
 
 .players {
   width:1000px;
-  height:850px;
+  height:820px;
   background-color: #fff;
   margin:0 auto;
   overflow:hidden;
@@ -67,8 +83,10 @@ h2 {
 
 .players .posTitle {
   width:945px;
+  height:30px;
   padding-top:40px;
   margin:0 auto;
+  position: relative;
 }
 
 .players .posTitle p {
@@ -97,6 +115,20 @@ h2 {
 .btn:visited {
   background-color: rgba(255,255,255,.3);
 }
+.sortbtn {
+  width:68px;
+  height:22px;
+  background-color: #fff;
+  position:absolute;
+  bottom:0;
+  right:0;
+  border:.7px solid #ed1c24;
+  cursor:pointer;
+  color:#ed1c24;
+}
+.sorticon {
+  color:#ed1c24;
+}
 
 
 /*PutScore.js*/
@@ -111,10 +143,9 @@ h2 {
   padding-right: 20px;
 }
 .inputGrade input {
-  width:100px;
+  width:115px;
   height:23px;
-  border:.7px
-  solid #c7c6c6;
+  border:.7px solid #c7c6c6;
   padding:5px;
   margin-right:8px;
 }
@@ -131,7 +162,9 @@ h2 {
 
 
 .putGrade {
-  background-color: #ed1c24;
+  background-color: #131230;
+  width:75px;
+  height:35px;
   color:#fff;
 }
 .putGrade:hover {
@@ -140,7 +173,7 @@ h2 {
 
 
 
-/*PitcherList.js*/
+/* PitcherListInfo.js / HitterListInfo.js */
 .playerbox {
   width:225px;
   height:270px;
@@ -278,13 +311,20 @@ color:#131230;
 
 
 
-/*List.js*/
+/* PitcherList.js / HitterList.js */
 
 .playerBigbox {
   width:944px;
-  height:800px;
+  height:900px;
   margin:0 auto;
+  
+}
+
+.playerScroll {
+  height:600px;
   overflow: hidden;
   overflow-y: auto;
 }
+
+
 

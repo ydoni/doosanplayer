@@ -1,19 +1,18 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PutScoreHit from './PutScoreHit.js';
 import HitterList from './HitterList.js';
 import axios from 'axios';
-import { post } from 'axios';
+import { faListOl } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Hitter extends Component {
-
-  id=1;
-
+  
   state = {
     
     //선수 데이터
     playerlist : [],
-    playerlist_h : []
+    playerlist_h : [],
+    isToggleOn : true
   }
 
   constructor(props){
@@ -25,12 +24,21 @@ class Hitter extends Component {
 
   //-- 버튼 클릭 시 성적순으로 정렬
 
-  sortOrder = () => {
-    const {playerlist} = this.state;
-    console.log("최종",playerlist);
-    this.setState({
-      // listsort:playerlist_p.sort((a,b)=>(a.id - b.id))
-    });
+  sortOrder = (e) => {
+    const { playerlist, isToggleOn } = this.state;
+    e.preventDefault();
+
+    if (isToggleOn === true){
+      this.setState({
+        playerlist : playerlist.sort((a,b)=>(b.batavg - a.batavg)),
+        isToggleOn : !isToggleOn
+      });
+    } else {
+      this.setState({
+        playerlist : playerlist.sort((a,b)=>(a.id - b.id)),
+        isToggleOn : !isToggleOn
+      });
+    }
     
   }
 
@@ -124,7 +132,17 @@ class Hitter extends Component {
           <div className = "players">
               <div className="posTitle">
                 <h2>타자 평균 타율 (할푼리)</h2>
-                <p>타수와 안타수로 타율을 계산합니다. (안타수 / 타수)</p>                
+                <p>타수와 안타수로 타율을 계산합니다. (안타수 / 타수)</p>
+                <button
+                  className = "sortbtn"
+                  onClick = {this.sortOrder}
+                >
+                  <FontAwesomeIcon
+                    icon = {faListOl}
+                    size = "1x"
+                    className = "sorticon"
+                  /> {this.state.isToggleOn ? '성적순' : '등록순'}
+                </button>
               </div>
               
               <PutScoreHit grade = {this.getScore} />

@@ -1,19 +1,19 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PutScorePit from './PutScorePit.js';
 import PitcherList from './PitcherList.js';
 import axios from 'axios';
-import { post } from 'axios';
+import { faListOl } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Pitcher extends Component {
 
-  id=1;
-
+  
   state = {
        
     //선수 데이터
     playerlist : [],
-    playerlist_p : []
+    playerlist_p : [],
+    isToggleOn : true
   }
 
 
@@ -26,17 +26,27 @@ class Pitcher extends Component {
 
   //-- 버튼 클릭 시 성적순으로 정렬
 
-  sortOrder = () => {
-    const {playerlist} = this.state;
-    console.log("최종",playerlist);
-    this.setState({
-      // listsort:playerlist_p.sort((a,b)=>(a.id - b.id))
-    });
+  sortOrder = (e) => {
+    const { playerlist, isToggleOn } = this.state;
+    console.log("sortOrder",isToggleOn);
+    e.preventDefault();
+
+    if (isToggleOn === true){
+      this.setState({
+        playerlist : playerlist.sort((a,b)=>(a.era - b.era)),
+        isToggleOn : !isToggleOn
+      });
+    } else {
+      this.setState({
+        playerlist : playerlist.sort((a,b)=>(a.id - b.id)),
+        isToggleOn : !isToggleOn
+      });
+    }
+    
     
   }
 
   // ------ CRUD 기능 메소드
-
 
   //DB에 저장돼있는 데이터 목록을 불러오는 메소드
   // 투수
@@ -53,8 +63,6 @@ class Pitcher extends Component {
       console.log(error);
     })    
   } 
-
-
 
   // 선수 등록 메소드
   getScore = (data) => {
@@ -122,23 +130,37 @@ class Pitcher extends Component {
 
   render (){
       
-    const {playerlist} = this.state;   
+    const {playerlist} = this.state;
 
     return (
       
         <div>    
           <div className = "players">
-              <div className="posTitle">
+              <div className="posTitle">                
                 <h2>투수 평균 자책점 (ERA)</h2>
-                <p>이닝수와 자책점으로 평균 자책점을 계산합니다. (자책점 * 9 / 이닝수)</p>                
+                <p>이닝수와 자책점으로 평균 자책점을 계산합니다. (자책점 * 9 / 이닝수)</p>  
+                <button
+                  className = "sortbtn"
+                  onClick = {this.sortOrder}
+                >
+                  <FontAwesomeIcon
+                    icon = {faListOl}
+                    size = "1x"
+                    className = "sorticon"
+                  /> {this.state.isToggleOn ? '성적순' : '등록순'}
+                </button>
+
               </div>
               
-              <PutScorePit grade = {this.getScore} />
+              <PutScorePit
+                grade = {this.getScore}
+                onSortOrder = {this.sortOrder}
+              />
 
               <PitcherList
                 data = {this.state.playerlist}
-                onRemove={this.removePlayer}
-                onModify={this.modifyPlayer}
+                onRemove = {this.removePlayer}
+                onModify = {this.modifyPlayer}
                 onSortOrder = {this.sortOrder}
               />      
 
