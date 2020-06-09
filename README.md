@@ -24,6 +24,9 @@ MySQL : DDL, DML의 SQL 언어로 데이터 등록
 
 **프로젝트 시행 영상**
 
+[![doosanplayer](http://img.youtube.com/vi/MFIft95cPMw/0.jpg)](https://youtu.be/MFIft95cPMw)
+
+※ 위 이미지를 클릭하면 유튜브를 통해 시행 영상을 확인할 수 있습니다.
 
 **개발 목적**
 
