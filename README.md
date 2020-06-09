@@ -43,3 +43,5 @@ MySQL : DDL, DML의 SQL 언어로 데이터 등록
 **Component 구조**
 
 ![doosanbears_구조-01-01](https://user-images.githubusercontent.com/56074618/83451599-359ec700-a492-11ea-91a1-0fbfa73d9318.jpg)
+
+![Untitled-2](https://user-images.githubusercontent.com/56074618/84170964-34ceec00-aab5-11ea-9ace-c065fa86b31a.jpg)
